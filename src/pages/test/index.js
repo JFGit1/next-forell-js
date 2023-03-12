@@ -39,7 +39,14 @@ export default function Test() {
 
 						<>{error && <p>Oops... Something went wrong.</p>}</>
 						<>{isFetching && <p>Loading...</p>}</>
-						<ul style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', margin: '3rem 2rem', listStyle: 'none' }}>
+						<ul
+							style={{
+								display: 'grid',
+								gridTemplateColumns: 'repeat(3, 1fr)',
+								gap: '1rem',
+								margin: '3rem 2rem',
+								listStyle: 'none',
+							}}>
 							{characterResults?.map(character => {
 								return (
 									<li key={character.name}>
@@ -69,8 +76,7 @@ export default function Test() {
 							dui cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum vehicula, nisl id ultrices varius, lorem nibh tempus arcu, vitae
 							ullamcorper ex sapien vel ex. Fusce condimentum lobortis velit nec suscipit. Integer nisi sem, mattis id dignissim nec, elementum vitae dolor. Quisque sagittis
 							semper libero, a pellentesque sapien molestie sit amet. Donec quis sapien nulla. Sed lacinia erat ex, ac consectetur arcu iaculis quis. Quisque maximus eros ac
-							lacus feugiat finibus eu eget massa. Nam eu mi commodo, condimentum arcu eu, rutrum mauris. Praesent pellentesque cursus efficitur. Nullam diam justo, pharetra
-							tincidunt purus nec, malesuada blandit mauris.
+							lacus feugiat finibus eu eget massa. Nam eu mi commodo, condimentum arcu eu, rutrum mauris. Praesent pellentesque cursus efficitur.
 						</p>
 					</div>
 				</main>
