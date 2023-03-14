@@ -3,12 +3,12 @@ import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
 import axios from 'axios';
-import { useQuery } from 'react-query';
 
-export default function Test() {
+export default function Test({ characterResults }) {
 	console.log('load test');
+	//console.log(characterResults);
 
-	const apiAxios = axios.create({
+	/* const apiAxios = axios.create({
 		baseURL: 'https://rickandmortyapi.com/',
 	});
 
@@ -26,7 +26,7 @@ export default function Test() {
 			staleTime: 1000 * 60,
 		}
 	);
-	const characterResults = characters?.results;
+	const characterResults = characters?.results; */
 
 	return (
 		<>
@@ -37,8 +37,8 @@ export default function Test() {
 					<div>
 						<h1>Test</h1>
 
-						<>{error && <p>Oops... Something went wrong.</p>}</>
-						<>{isFetching && <p>Loading...</p>}</>
+						{/* <>{error && <p>Oops... Something went wrong.</p>}</>
+						<>{isFetching && <p>Loading...</p>}</> */}
 						<ul
 							style={{
 								display: 'grid',
@@ -84,4 +84,20 @@ export default function Test() {
 			</Layout>
 		</>
 	);
+}
+
+const apiAxios = axios.create({
+	baseURL: 'https://rickandmortyapi.com/',
+	cache: {
+		maxAge: 1 * 60 * 1000,
+	},
+});
+
+export async function getServerSideProps(context) {
+	/* const res = await fetch(`https://rickandmortyapi.com/api/character`);
+	const data = await res.json(); */
+	const { data } = await apiAxios.get('api/character');
+
+	// Pass data to the page via props
+	return { props: { characterResults: data?.results } };
 }

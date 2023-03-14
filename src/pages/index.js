@@ -1,7 +1,6 @@
 import Head from '../components/Head';
 import { Footer } from '../components/Footer';
 import Layout from '../components/Layout';
-import { ProjectsList } from '../components/ProjectsList';
 
 export default function Home() {
 	console.log('load home');
@@ -15,7 +14,6 @@ export default function Home() {
 				/>
 				<main>
 					<h1>Welcome</h1>
-					<ProjectsList />
 				</main>
 				<Footer />
 			</Layout>

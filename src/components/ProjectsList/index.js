@@ -51,6 +51,7 @@ const fetchProducts = async () => {
 		}
 	`);
 };
+console.log(fetchProducts);
 
 export function ProjectsList() {
 	const { data: projects, isLoading, error } = useQuery(['get-products'], fetchProducts, { staleTime: 1000 * 60 });

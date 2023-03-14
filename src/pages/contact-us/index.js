@@ -2,21 +2,38 @@ import Head from '../../components/Head';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
-import ContentPage from '../../components/ContentPages';
+import wpApolloClient from '../../services/wp-apollo-client';
+import { PAGES_BY_SLUG } from '../../queries/pages';
 
-export default function ContactUs() {
+export default function ContactUs({ contentPage }) {
 	console.log('load contact us');
 
 	return (
 		<>
-			<Head title='Contact Us | Forell/Elsesser Engineers, Inc.' description='This is the Contact Us page' />
+			<Head title={`${contentPage?.page.title} | Forell/Elsesser Engineers, Inc.`} description='This is the Contact Us page' />
 
 			<Layout>
 				<main>
-					<ContentPage id='7' />
+					<div>
+						<h1>{contentPage?.page.title}</h1>
+						<div dangerouslySetInnerHTML={{ __html: contentPage?.page.content }} />
+					</div>
 				</main>
 				<Footer />
 			</Layout>
 		</>
 	);
+}
+
+export async function getStaticProps(context) {
+	const { data: contentPage } = await wpApolloClient.query({
+		query: PAGES_BY_SLUG,
+		variables: { id: 'contact' },
+	});
+
+	return {
+		props: {
+			contentPage,
+		},
+	};
 }
