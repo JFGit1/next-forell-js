@@ -1,4 +1,4 @@
-import Head from '../../components/Head';
+import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
@@ -10,7 +10,7 @@ export default function AboutUs({ contentPage }) {
 
 	return (
 		<>
-			<Head title={`${contentPage?.page.title} | Forell/Elsesser Engineers, Inc.`} description='This is the About Us page' />
+			<Seo title={`${contentPage?.page.title} | Forell/Elsesser Engineers, Inc.`} description='This is the About Us page' />
 
 			<Layout>
 				<main>

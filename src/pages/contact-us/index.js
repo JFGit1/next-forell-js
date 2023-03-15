@@ -1,4 +1,4 @@
-import Head from '../../components/Head';
+import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
@@ -10,7 +10,7 @@ export default function ContactUs({ contentPage }) {
 
 	return (
 		<>
-			<Head title={`${contentPage?.page.title} | Forell/Elsesser Engineers, Inc.`} description='This is the Contact Us page' />
+			<Seo title={`${contentPage?.page.title} | Forell/Elsesser Engineers, Inc.`} description='This is the Contact Us page' />
 
 			<Layout>
 				<main>
@@ -28,7 +28,7 @@ export default function ContactUs({ contentPage }) {
 export async function getStaticProps(context) {
 	const { data: contentPage } = await wpApolloClient.query({
 		query: PAGES_BY_SLUG,
-		variables: { id: 'contact' },
+		variables: { id: 'contact-us' },
 	});
 
 	return {

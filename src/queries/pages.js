@@ -10,44 +10,91 @@ export const PAGES_BY_SLUG = gql`
 `;
 
 export const PROJECT_LIST = gql`
-	{
-		projectsACM(first: 10) {
+	query AllProjects {
+		projects(first: 0, where: { status: PUBLISH }) {
 			nodes {
-				...ProjectACMFields
-			}
-		}
-	}
-
-	fragment ProjectACMFields on ProjectACM {
-		title
-		subtitle
-		body
-		images {
-			mediaItemId
-			mediaItemUrl
-			altText
-			caption
-			description
-			mediaDetails {
-				height
-				width
-				sizes {
-					file
-					fileSize
-					height
-					mimeType
-					name
-					sourceUrl
-					width
+				title
+				slug
+				uri
+				projHasPage
+				featuredImage {
+					node {
+						mediaItemUrl
+					}
+				}
+				projTeam(first: 0) {
+					nodes {
+						title
+						slug
+						uri
+						staffCategories {
+							nodes {
+								name
+							}
+						}
+					}
+				}
+				projSubTitle
+				projectsCategories {
+					edges {
+						node {
+							name
+							slug
+							uri
+						}
+					}
 				}
 			}
 		}
-		team {
-			edges {
-				node {
-					id
-					email
-					name
+	}
+`;
+
+export const ALL_PROJECTS_CATEGORY = gql`
+	query AllProjectsCategory {
+		projectsCategories(first: 50, where: { hideEmpty: false }) {
+			nodes {
+				name
+				slug
+				uri
+			}
+		}
+	}
+`;
+
+export const PROJECTS_CATEGORY = gql`
+	query ProjectsCategory($slug: [String] = "") {
+		projectsCategories(first: 50, where: { hideEmpty: false, slug: $slug }) {
+			nodes {
+				name
+				slug
+				uri
+				description
+				projects(where: { orderby: { field: TITLE, order: ASC } }) {
+					nodes {
+						title
+						slug
+						projHasPage
+					}
+				}
+			}
+		}
+	}
+`;
+
+export const PROJECT_PAGE = gql`
+	query ProjectsPage($id: ID = "") {
+		project(id: $id, idType: SLUG) {
+			title
+			slug
+			projHasPage
+			projSubTitle
+			content
+			projCustomizedSolution
+			projHighlights
+			projTeam(first: 50) {
+				nodes {
+					slug
+					title
 				}
 			}
 		}

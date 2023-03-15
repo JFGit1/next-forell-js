@@ -1,38 +1,41 @@
-import Head from '../../components/Head';
+import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
+import Link from 'next/link';
 import wpApolloClient from '../../services/wp-apollo-client';
-import { PROJECT_LIST } from '../../queries/pages';
+import { ALL_PROJECTS_CATEGORY } from '../../queries/pages';
 
-export default function AboutUs({ dataProjects }) {
+export default function AboutUs({ AllProjectsCategories }) {
 	console.log('load projects');
-	//const dataProjects = projectList?.projectsACM.nodes;
+	console.log('AllProjectsCategories:', AllProjectsCategories);
 
 	return (
 		<>
-			<Head title='Projects | Forell/Elsesser Engineers, Inc.' description='This is the Projects page' />
+			<Seo title='Projects | Forell/Elsesser Engineers, Inc.' description='This is the Projects page' />
 
 			<Layout>
 				<main>
 					<h1>Projects</h1>
 					<ul className='projects-list-items'>
-						{dataProjects?.map(productItem => {
+						{AllProjectsCategories?.map(productItem => {
 							return (
-								<li key={productItem?.title}>
-									<strong>{productItem?.title}</strong>
-									<p>{productItem?.subtitle}</p>
-									<ul className='projects-list-team'>
-										{productItem?.team.edges.map(sub => (
-											<li key={sub.node.id}>
+								<li key={productItem?.slug}>
+									<Link href={`/projects/category/${productItem?.slug}`} scroll={false}>
+										<strong>{productItem?.name}</strong>
+									</Link>
+
+									{/* <ul className='projects-list-team'>
+										{productItem?.projTeam.nodes.map(sub => (
+											<li key={sub.slug}>
 												<p>
-													<strong>{sub.node.name}</strong>
+													<strong>{sub.title}</strong> - <i>{sub.uri}</i>
 													<br />
-													<a href={`mailto:` + sub.node.email}>{sub.node.email}</a>
+													<span>{sub.staffCategories.nodes[0].name}</span>
 												</p>
 											</li>
 										))}
-									</ul>
+									</ul> */}
 								</li>
 							);
 						})}
@@ -46,12 +49,12 @@ export default function AboutUs({ dataProjects }) {
 
 export async function getStaticProps(context) {
 	const { data } = await wpApolloClient.query({
-		query: PROJECT_LIST,
+		query: ALL_PROJECTS_CATEGORY,
 	});
 
 	return {
 		props: {
-			dataProjects: data.projectsACM.nodes,
+			AllProjectsCategories: data.projectsCategories.nodes,
 		},
 	};
 }

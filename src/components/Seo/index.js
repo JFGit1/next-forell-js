@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NextHead from 'next/head';
 
-export default function Head({ title, desc, img }) {
+export default function Seo({ title, desc, img }) {
 	return (
 		<NextHead>
 			<title>{title}</title>
@@ -25,7 +25,7 @@ export default function Head({ title, desc, img }) {
 	);
 }
 
-Head.propTypes = {
+Seo.propTypes = {
 	title: PropTypes.string.isRequired,
 	desc: PropTypes.string,
 	img: PropTypes.string,

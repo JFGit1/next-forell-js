@@ -1,4 +1,4 @@
-import Head from '../../components/Head';
+import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
@@ -30,7 +30,7 @@ export default function Test({ characterResults }) {
 
 	return (
 		<>
-			<Head title='Contact Us | Forell/Elsesser Engineers, Inc.' description='This is the Contact Us page' />
+			<Seo title='Contact Us | Forell/Elsesser Engineers, Inc.' description='This is the Contact Us page' />
 
 			<Layout>
 				<main>
