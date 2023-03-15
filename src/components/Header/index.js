@@ -33,11 +33,6 @@ export function Header() {
 								Contact Us
 							</Link>
 						</li>
-						<li>
-							<Link href='/test' scroll={false}>
-								Test
-							</Link>
-						</li>
 					</ul>
 				</nav>
 			</div>
