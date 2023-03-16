@@ -82,6 +82,12 @@ export const GlobalStyles = createGlobalStyle`
       opacity: 0.6;
    }
 
+   img {
+      height: auto;
+      max-width: 100%;
+      width: auto;
+   }
+
    main {
       ${({ theme }) => theme.containerWidth}
       padding: 6rem 1rem 2rem 1rem;

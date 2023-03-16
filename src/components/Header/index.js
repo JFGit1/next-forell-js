@@ -24,6 +24,11 @@ export function Header() {
 							</Link>
 						</li>
 						<li>
+							<Link href='/about-us/staff' scroll={false}>
+								Staff
+							</Link>
+						</li>
+						<li>
 							<Link href='/projects' scroll={false}>
 								Projects
 							</Link>

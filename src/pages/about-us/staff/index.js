@@ -2,17 +2,63 @@ import Seo from '../../../components/Seo';
 import Layout from '../../../components/Layout';
 import { Footer } from '../../../components/Footer';
 
-export default function FourOhFour() {
+import wpApolloClient from '../../../services/wp-apollo-client';
+import { ALL_STAFF_LIST } from '../../../queries/pages';
+import Link from 'next/link';
+
+export default function Staff({ staffList }) {
+	console.log('staffList:', staffList);
+
 	return (
 		<>
 			<Seo title={`Staff | Forell/Elsesser Engineers, Inc.`} description='This is the Projects page' />
 			<Layout>
 				<main>
 					<h1>Staff</h1>
-					<p>Coming soon.</p>
+
+					{staffList?.map(item => {
+						return (
+							<div key={item.slug}>
+								<h2>{item.name}</h2>
+								<ul
+									key={`list-${item.slug}`}
+									style={{
+										display: 'grid',
+										gridTemplateColumns: 'repeat(3, 1fr)',
+										gap: '1rem',
+										margin: '0 0 3rem 0',
+										padding: '0',
+										listStyle: 'none',
+									}}>
+									{item?.staffs?.nodes.map(subItem => {
+										return (
+											<li key={subItem.slug}>
+												<Link href={`/about-us/staff/${subItem.slug}`} scroll={false}>
+													<img src={subItem.featuredImage?.node.sourceUrl} title={subItem.title} />
+													<strong>{subItem.title}</strong>
+												</Link>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						);
+					})}
 				</main>
 				<Footer />
 			</Layout>
 		</>
 	);
+}
+
+export async function getStaticProps(context) {
+	const { data } = await wpApolloClient.query({
+		query: ALL_STAFF_LIST,
+	});
+
+	return {
+		props: {
+			staffList: data.staffCategories.nodes,
+		},
+	};
 }

@@ -115,3 +115,59 @@ export const ALL_PROJECTS_PATH = gql`
 		}
 	}
 `;
+
+export const ALL_STAFF_LIST = gql`
+	query AllStaffList {
+		staffCategories(first: 50) {
+			nodes {
+				name
+				slug
+				staffs(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+					nodes {
+						title
+						slug
+						featuredImage {
+							node {
+								sourceUrl(size: MEDIUM_LARGE)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+`;
+export const STAFF_PAGE = gql`
+	query StaffPage($id: ID = "") {
+		staff(id: $id, idType: URI) {
+			title
+			slug
+			staffSubTitle
+			content
+			staffInformations
+			staffEmail
+			featuredImage {
+				node {
+					sourceUrl(size: LARGE)
+				}
+			}
+			projTeam(first: 100) {
+				nodes {
+					title
+					slug
+					status
+				}
+			}
+		}
+	}
+`;
+
+export const ALL_STAFF_PAGE = gql`
+	query AllStaffPage {
+		staffs(first: 500, where: { status: PUBLISH }) {
+			nodes {
+				slug
+			}
+		}
+	}
+`;
