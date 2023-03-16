@@ -25,12 +25,10 @@ export default function AboutUs({ contentPage }) {
 	);
 }
 
-export async function getServerSideProps(context) {
-	context.res.setHeader('Cache-Control', 'public, s-maxage=10, max-age=7200, stale-while-revalidate=59');
-
+export async function getStaticProps(context) {
 	const { data: contentPage } = await wpApolloClient.query({
 		query: PAGES_BY_SLUG,
-		variables: { id: 'about' },
+		variables: { id: 'about-us' },
 	});
 
 	return {
@@ -39,3 +37,20 @@ export async function getServerSideProps(context) {
 		},
 	};
 }
+
+/*
+export async function getServerSideProps(context) {
+	context.res.setHeader('Cache-Control', 'public, s-maxage=10, max-age=7200, stale-while-revalidate=59');
+
+	const { data: contentPage } = await wpApolloClient.query({
+		query: PAGES_BY_SLUG,
+		variables: { id: 'about-us' },
+	});
+
+	return {
+		props: {
+			contentPage,
+		},
+	};
+}
+ */

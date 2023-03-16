@@ -97,6 +97,12 @@ export const PROJECTS_PAGE = gql`
 					title
 				}
 			}
+			projectsCategories(first: 50) {
+				nodes {
+					name
+					slug
+				}
+			}
 		}
 	}
 `;

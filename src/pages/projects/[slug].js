@@ -20,18 +20,30 @@ export default function AboutUs({ ProjectPage }) {
 					<h1>{ProjectPage?.title}</h1>
 					<p>{ProjectPage?.projSubTitle}</p>
 					<div dangerouslySetInnerHTML={{ __html: ProjectPage?.content }} />
-					<h3>Customized Solution</h3>
+					<h2>Customized Solution</h2>
 					<div dangerouslySetInnerHTML={{ __html: ProjectPage?.projCustomizedSolution }} />
-					<h3>Highlights</h3>
+					<h2>Highlights</h2>
 					<div dangerouslySetInnerHTML={{ __html: ProjectPage?.projHighlights }} />
 
-					<h3>Team</h3>
+					<h2>Team</h2>
 					<ul>
 						{ProjectPage?.projTeam?.nodes.map(teamItem => {
 							return (
 								<li key={teamItem?.slug}>
 									<Link href={`/about-us/staff/${teamItem?.slug}`} scroll={false}>
 										<strong>{teamItem?.title}</strong>
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+					<h2>Categories</h2>
+					<ul>
+						{ProjectPage?.projectsCategories?.nodes.map(categoryItem => {
+							return (
+								<li key={categoryItem?.slug}>
+									<Link href={`/projects/category/${categoryItem?.slug}`} scroll={false}>
+										<strong>{categoryItem?.name}</strong>
 									</Link>
 								</li>
 							);
