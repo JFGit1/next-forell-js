@@ -3,12 +3,12 @@ import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
 import wpApolloClient from '../../services/wp-apollo-client';
-import { PROJECT_PAGE } from '../../queries/pages';
+import { PROJECTS_PAGE, ALL_PROJECTS_PATH } from '../../queries/pages';
 import Link from 'next/link';
 
 export default function AboutUs({ ProjectPage }) {
-	console.log('load projects');
-	console.log('ProjectPage:', ProjectPage);
+	// console.log('load projects');
+	// console.log('ProjectPage:', ProjectPage);
 
 	return (
 		<>
@@ -44,10 +44,39 @@ export default function AboutUs({ ProjectPage }) {
 	);
 }
 
+export async function getStaticPaths() {
+	const { data } = await wpApolloClient.query({
+		query: ALL_PROJECTS_PATH,
+	});
+
+	const paths = data.projects.nodes.map(item => ({
+		params: { slug: item.slug },
+	}));
+
+	return {
+		paths: paths || [],
+		fallback: false, // can also be true or 'blocking'
+	};
+}
+
+export async function getStaticProps({ params }) {
+	const { data } = await wpApolloClient.query({
+		query: PROJECTS_PAGE,
+		variables: { id: params.slug },
+	});
+
+	return {
+		props: {
+			ProjectPage: data.project,
+		},
+	};
+}
+
+/*
 export async function getServerSideProps(context) {
 	const { slug } = context.query;
 	const { data } = await wpApolloClient.query({
-		query: PROJECT_PAGE,
+		query: PROJECTS_PAGE,
 		variables: { id: slug },
 	});
 
@@ -57,3 +86,4 @@ export async function getServerSideProps(context) {
 		},
 	};
 }
+ */

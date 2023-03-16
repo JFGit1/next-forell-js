@@ -4,11 +4,10 @@ import Layout from '../../../components/Layout';
 
 import Link from 'next/link';
 import wpApolloClient from '../../../services/wp-apollo-client';
-import { PROJECTS_CATEGORY } from '../../../queries/pages';
+import { PROJECTS_CATEGORY, ALL_PROJECT_CATEGORIES } from '../../../queries/pages';
 
-export default function AboutUs({ ProjectCategoryPage, slug }) {
-	console.log('load projects');
-	console.log('slug:', slug);
+export default function AboutUs({ ProjectCategoryPage }) {
+	// console.log('load projects');
 
 	return (
 		<>
@@ -42,7 +41,36 @@ export default function AboutUs({ ProjectCategoryPage, slug }) {
 	);
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+	const { data } = await wpApolloClient.query({
+		query: ALL_PROJECT_CATEGORIES,
+	});
+
+	const paths = data.projectsCategories.nodes.map(item => ({
+		params: { slug: item.slug },
+	}));
+
+	return {
+		paths: paths || [],
+		fallback: false, // can also be true or 'blocking'
+	};
+}
+
+export async function getStaticProps({ params }) {
+	const { data } = await wpApolloClient.query({
+		query: PROJECTS_CATEGORY,
+		variables: { slug: params.slug },
+	});
+
+	return {
+		props: {
+			ProjectCategoryPage: data.projectsCategories.nodes,
+		},
+	};
+}
+
+/*
+export async function getStaticProps(context) {
 	const { slug } = context.query;
 	const { data } = await wpApolloClient.query({
 		query: PROJECTS_CATEGORY,
@@ -52,7 +80,7 @@ export async function getServerSideProps(context) {
 	return {
 		props: {
 			ProjectCategoryPage: data.projectsCategories.nodes,
-			slug,
 		},
 	};
 }
+ */

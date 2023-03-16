@@ -49,7 +49,7 @@ export const PROJECT_LIST = gql`
 	}
 `;
 
-export const ALL_PROJECTS_CATEGORY = gql`
+export const ALL_PROJECT_CATEGORIES = gql`
 	query AllProjectsCategory {
 		projectsCategories(first: 50, where: { hideEmpty: false }) {
 			nodes {
@@ -81,7 +81,7 @@ export const PROJECTS_CATEGORY = gql`
 	}
 `;
 
-export const PROJECT_PAGE = gql`
+export const PROJECTS_PAGE = gql`
 	query ProjectsPage($id: ID = "") {
 		project(id: $id, idType: SLUG) {
 			title
@@ -96,6 +96,15 @@ export const PROJECT_PAGE = gql`
 					slug
 					title
 				}
+			}
+		}
+	}
+`;
+export const ALL_PROJECTS_PATH = gql`
+	query AllProjectsPath {
+		projects(first: 200, where: { status: PUBLISH }) {
+			nodes {
+				slug
 			}
 		}
 	}

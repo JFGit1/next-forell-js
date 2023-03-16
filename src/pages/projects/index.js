@@ -4,11 +4,11 @@ import Layout from '../../components/Layout';
 
 import Link from 'next/link';
 import wpApolloClient from '../../services/wp-apollo-client';
-import { ALL_PROJECTS_CATEGORY } from '../../queries/pages';
+import { ALL_PROJECT_CATEGORIES } from '../../queries/pages';
 
 export default function AboutUs({ AllProjectsCategories }) {
-	console.log('load projects');
-	console.log('AllProjectsCategories:', AllProjectsCategories);
+	// console.log('load projects');
+	// console.log('AllProjectsCategories:', AllProjectsCategories);
 
 	return (
 		<>
@@ -24,18 +24,6 @@ export default function AboutUs({ AllProjectsCategories }) {
 									<Link href={`/projects/category/${productItem?.slug}`} scroll={false}>
 										<strong>{productItem?.name}</strong>
 									</Link>
-
-									{/* <ul className='projects-list-team'>
-										{productItem?.projTeam.nodes.map(sub => (
-											<li key={sub.slug}>
-												<p>
-													<strong>{sub.title}</strong> - <i>{sub.uri}</i>
-													<br />
-													<span>{sub.staffCategories.nodes[0].name}</span>
-												</p>
-											</li>
-										))}
-									</ul> */}
 								</li>
 							);
 						})}
@@ -49,7 +37,7 @@ export default function AboutUs({ AllProjectsCategories }) {
 
 export async function getStaticProps(context) {
 	const { data } = await wpApolloClient.query({
-		query: ALL_PROJECTS_CATEGORY,
+		query: ALL_PROJECT_CATEGORIES,
 	});
 
 	return {
