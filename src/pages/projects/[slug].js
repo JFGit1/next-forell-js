@@ -2,8 +2,8 @@ import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
-import wpApolloClient from '../../services/wp-apollo-client';
-import { PROJECTS_PAGE, ALL_PROJECTS_PATH } from '../../queries/pages';
+import apolloClient from '../../services/apollo-client';
+import { PROJECTS_PAGE, ALL_PROJECTS_PATH } from '../../services/graphql/queries';
 import Link from 'next/link';
 
 export default function AboutUs({ ProjectPage }) {
@@ -57,7 +57,7 @@ export default function AboutUs({ ProjectPage }) {
 }
 
 export async function getStaticPaths() {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: ALL_PROJECTS_PATH,
 	});
 
@@ -72,7 +72,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: PROJECTS_PAGE,
 		variables: { id: params.slug },
 	});
@@ -87,7 +87,7 @@ export async function getStaticProps({ params }) {
 /*
 export async function getServerSideProps(context) {
 	const { slug } = context.query;
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: PROJECTS_PAGE,
 		variables: { id: slug },
 	});

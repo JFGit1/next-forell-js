@@ -2,8 +2,8 @@ import Seo from '../../../components/Seo';
 import Layout from '../../../components/Layout';
 import { Footer } from '../../../components/Footer';
 
-import wpApolloClient from '../../../services/wp-apollo-client';
-import { ALL_STAFF_PAGE, STAFF_PAGE } from '../../../queries/pages';
+import apolloClient from '../../../services/apollo-client';
+import { ALL_STAFF_PAGE, STAFF_PAGE } from '../../../services/graphql/queries';
 import Link from 'next/link';
 
 export default function Staff({ StaffPage }) {
@@ -43,7 +43,7 @@ export default function Staff({ StaffPage }) {
 }
 
 export async function getStaticPaths() {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: ALL_STAFF_PAGE,
 	});
 
@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: STAFF_PAGE,
 		variables: { id: params.slug },
 	});

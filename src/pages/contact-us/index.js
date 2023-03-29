@@ -2,8 +2,8 @@ import Seo from '../../components/Seo';
 import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
-import wpApolloClient from '../../services/wp-apollo-client';
-import { PAGES_BY_SLUG } from '../../queries/pages';
+import apolloClient from '../../services/apollo-client';
+import { PAGES_BY_SLUG } from '../../services/graphql/queries';
 
 export default function ContactUs({ contentPage }) {
 	console.log('load contact us');
@@ -26,7 +26,7 @@ export default function ContactUs({ contentPage }) {
 }
 
 export async function getStaticProps(context) {
-	const { data: contentPage } = await wpApolloClient.query({
+	const { data: contentPage } = await apolloClient.query({
 		query: PAGES_BY_SLUG,
 		variables: { id: 'contact-us' },
 	});

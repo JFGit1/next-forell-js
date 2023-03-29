@@ -3,8 +3,8 @@ import { Footer } from '../../components/Footer';
 import Layout from '../../components/Layout';
 
 import Link from 'next/link';
-import wpApolloClient from '../../services/wp-apollo-client';
-import { ALL_PROJECT_CATEGORIES } from '../../queries/pages';
+import apolloClient from '../../services/apollo-client';
+import { ALL_PROJECT_CATEGORIES } from '../../services/graphql/queries';
 
 export default function AboutUs({ AllProjectsCategories }) {
 	// console.log('load projects');
@@ -36,7 +36,7 @@ export default function AboutUs({ AllProjectsCategories }) {
 }
 
 export async function getStaticProps(context) {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: ALL_PROJECT_CATEGORIES,
 	});
 

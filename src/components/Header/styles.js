@@ -44,6 +44,10 @@ export const HeaderWrapper = styled.header`
 					&:hover {
 						color: ${({ theme }) => theme.colors.orange};
 					}
+
+					&.active {
+						color: ${({ theme }) => theme.colors.orange};
+					}
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MenuLink } from '../MenuLink/index.js';
 
 import { HeaderWrapper } from './styles.js';
 
@@ -7,36 +8,26 @@ export function Header() {
 		<HeaderWrapper>
 			<div className='headerContent'>
 				<h1>
-					<Link href='/' scroll={false}>
+					<Link href='/' scroll={false} prefetch={false}>
 						Forell|Elsesser
 					</Link>
 				</h1>
 				<nav className='navMenu'>
 					<ul>
 						<li>
-							<Link href='/' scroll={false}>
-								Home
-							</Link>
+							<MenuLink label='Home' url='/' />
 						</li>
 						<li>
-							<Link href='/about-us' scroll={false}>
-								About Us
-							</Link>
+							<MenuLink label='About Us' url='/about-us' />
 						</li>
 						<li>
-							<Link href='/about-us/staff' scroll={false}>
-								Staff
-							</Link>
+							<MenuLink label='Staff' url='/about-us/staff' />
 						</li>
 						<li>
-							<Link href='/projects' scroll={false}>
-								Projects
-							</Link>
+							<MenuLink label='Projects' url='/projects' />
 						</li>
 						<li>
-							<Link href='/contact-us' scroll={false}>
-								Contact Us
-							</Link>
+							<MenuLink label='Contact Us' url='/contact-us' />
 						</li>
 					</ul>
 				</nav>

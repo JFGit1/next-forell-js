@@ -1,5 +1,26 @@
 import { gql } from '@apollo/client';
 
+export const MAIN_MENU = gql`
+	query MainMenu {
+		menu(id: "2", idType: DATABASE_ID) {
+			menuItems(where: { parentId: "0" }) {
+				nodes {
+					uri
+					label
+					id
+					childItems {
+						nodes {
+							label
+							uri
+							id
+						}
+					}
+				}
+			}
+		}
+	}
+`;
+
 export const PAGES_BY_SLUG = gql`
 	query PageByIdQuery($id: ID!) {
 		page(idType: URI, id: $id) {
@@ -171,3 +192,45 @@ export const ALL_STAFF_PAGE = gql`
 		}
 	}
 `;
+
+/* SEARCH - Open */
+export const SEARCH_IN_ALL = gql`
+	query SearchInAll($search: String = "") {
+		contentNodes(where: { search: $search, status: PUBLISH }, first: 50) {
+			nodes {
+				contentTypeName
+				slug
+				... on Page {
+					title
+				}
+				... on Post {
+					title
+					excerpt
+				}
+				... on Project {
+					title
+					excerpt
+				}
+				... on Staff {
+					title
+					excerpt
+				}
+			}
+		}
+	}
+`;
+
+export const SEARCH_ON_PROJECTS = gql`
+	query SearchOnProjects($search: String = "") {
+		contentNodes(where: { search: $search, status: PUBLISH, contentTypes: PROJECTS }, first: 50) {
+			nodes {
+				slug
+				... on Project {
+					title
+					excerpt
+				}
+			}
+		}
+	}
+`;
+/* SEARCH - Close */

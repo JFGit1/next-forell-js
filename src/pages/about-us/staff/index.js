@@ -2,8 +2,8 @@ import Seo from '../../../components/Seo';
 import Layout from '../../../components/Layout';
 import { Footer } from '../../../components/Footer';
 
-import wpApolloClient from '../../../services/wp-apollo-client';
-import { ALL_STAFF_LIST } from '../../../queries/pages';
+import apolloClient from '../../../services/apollo-client';
+import { ALL_STAFF_LIST } from '../../../services/graphql/queries';
 import Link from 'next/link';
 
 export default function Staff({ staffList }) {
@@ -33,7 +33,7 @@ export default function Staff({ staffList }) {
 									{item?.staffs?.nodes.map(subItem => {
 										return (
 											<li key={subItem.slug}>
-												<Link href={`/about-us/staff/${subItem.slug}`} scroll={false}>
+												<Link prefetch={false} href={`/about-us/staff/${subItem.slug}`} scroll={false}>
 													<img src={subItem.featuredImage?.node.sourceUrl} title={subItem.title} />
 													<strong>{subItem.title}</strong>
 												</Link>
@@ -52,7 +52,7 @@ export default function Staff({ staffList }) {
 }
 
 export async function getStaticProps(context) {
-	const { data } = await wpApolloClient.query({
+	const { data } = await apolloClient.query({
 		query: ALL_STAFF_LIST,
 	});
 
